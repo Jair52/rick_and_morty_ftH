@@ -17,9 +17,9 @@ export default function SearchBar(props) {
 
    const handleRandom = event =>{
       event.preventDefault();
-    const randomId = Math.floor(Math.random() * 826) + 1;
-    props.onSearch(randomId.toString());
-    setId("");
+      const randomId = Math.floor(Math.random() * 826) + 1;
+      props.onSearch(randomId.toString());
+      setId("");
    }
 
    return (
