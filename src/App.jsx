@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import './App.css';
+import axios from 'axios';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Cards from './components/cards/Cards.jsx';
 import Nav from './components/nav/Nav.jsx';
-import axios from 'axios';
+import About from './components/about/About.jsx';
+import Detail from './components/detail/Detail.jsx';
+import NotFound from './components/notFound/NotFound.jsx';
+
 //https://rym2.up.railway.app/api/character/10?key=henrystaff
 
 const URL = "https://rym2.up.railway.app/api/character";
@@ -11,6 +16,8 @@ const API_key = "henrystaff";
 function App() {
 
    const [characters, setCharacters] = useState([]);
+
+   const navigate = useNavigate();
    
    function onSearch(id) {
       const characterId = characters.filter(
@@ -28,6 +35,7 @@ function App() {
             }
          }
       );
+      navigate("/home");
    }
 
    //* characters [ {id:1}]
@@ -39,8 +47,26 @@ function App() {
    return (
       <div className='App'>
          <Nav onSearch={onSearch}/>
-         <hr  />
-         <Cards characters={characters} onClose={onClose} />
+         <Routes>
+            <Route 
+               path='/home' 
+               element={<Cards characters={characters}
+               onClose={onClose}/>} 
+            />
+            <Route
+               path='/about'
+               element={<About/>}
+            />
+            <Route
+               path='/detail/:id'
+               element={<Detail />}
+            />
+            <Route 
+               path='*' 
+               element={<NotFound />}
+               />
+         </Routes>
+         <hr />
       </div>
    );
 }
