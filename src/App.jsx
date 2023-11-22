@@ -1,11 +1,12 @@
-import { useState } from 'react';
 import './App.css';
 import axios from 'axios';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import Cards from './components/cards/Cards.jsx';
-import Nav from './components/nav/Nav.jsx';
+import { useEffect, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import About from './components/about/About.jsx';
+import Cards from './components/cards/Cards.jsx';
 import Detail from './components/detail/Detail.jsx';
+import Form from './components/form/Form.jsx';
+import Nav from './components/nav/Nav.jsx';
 import NotFound from './components/notFound/NotFound.jsx';
 
 //https://rym2.up.railway.app/api/character/10?key=henrystaff
@@ -18,6 +19,7 @@ function App() {
    const [characters, setCharacters] = useState([]);
 
    const navigate = useNavigate();
+   const location = useLocation();
    
    function onSearch(id) {
       const characterId = characters.filter(
@@ -44,10 +46,40 @@ function App() {
       setCharacters(characters.filter(char => char.id !== Number(id)))
    }
 
+   //*Login de contraseña
+   //const navigate = useNavigate();
+   const [access, setAccess] = useState(false);
+   const EMAIL = 'rickmortypi@gmail.com';
+   const PASSWORD = '123456';
+
+   function login(userData) {
+      if (userData.password === PASSWORD && userData.email === EMAIL) {
+         setAccess(true);
+         navigate('/home');
+      } else{
+         alert("El usuario o la contraseña es incorrecto")
+      }
+   }
+
+   function logout() {
+      setAccess(false);
+   }
+
+   //* No permite que se ingrese por el url si no pone bien el usuario y contraseña
+   useEffect(() => {
+      !access && navigate('/');
+   }, [access]);
+
    return (
       <div className='App'>
-         <Nav onSearch={onSearch}/>
+         {
+            location.pathname !== "/" ? <Nav onSearch={onSearch} logout={logout}/> : null
+         }   
          <Routes>
+            <Route 
+               path='/' 
+               element={<Form login={login}/>} 
+            />
             <Route 
                path='/home' 
                element={<Cards characters={characters}
