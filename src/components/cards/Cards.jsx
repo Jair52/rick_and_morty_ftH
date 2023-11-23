@@ -14,6 +14,7 @@ export default function Cards({characters, onClose}) {
       }}
       >
          {
+            !characters.length ? <h2>Por favor ingrese un id </h2> : //Condicion para ver si no hay card
             characters.map(character => (
                <Card 
                   //* key={props.character.id}

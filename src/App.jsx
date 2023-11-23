@@ -2,9 +2,12 @@ import './App.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { removeFav } from './redux/action.js';
 import About from './components/about/About.jsx';
 import Cards from './components/cards/Cards.jsx';
 import Detail from './components/detail/Detail.jsx';
+import Favorites from './components/favorites/Favorites.jsx';
 import Form from './components/form/Form.jsx';
 import Nav from './components/nav/Nav.jsx';
 import NotFound from './components/notFound/NotFound.jsx';
@@ -17,9 +20,9 @@ const API_key = "henrystaff";
 function App() {
 
    const [characters, setCharacters] = useState([]);
-
    const navigate = useNavigate();
    const location = useLocation();
+   const dispatch = useDispatch();
    
    function onSearch(id) {
       const characterId = characters.filter(
@@ -42,8 +45,9 @@ function App() {
 
    //* characters [ {id:1}]
 
-   const onClose = id => {
-      setCharacters(characters.filter(char => char.id !== Number(id)))
+   const onClose = (id) => {
+      setCharacters(characters.filter(char => char.id !== Number(id)));
+      dispatch(removeFav(id));
    }
 
    //*Login de contraseña
@@ -93,10 +97,14 @@ function App() {
                path='/detail/:id'
                element={<Detail />}
             />
+            <Route
+               path='/favorites'
+               element={<Favorites onClose={onClose}/>}
+            />
             <Route 
                path='*' 
                element={<NotFound />}
-               />
+            />
          </Routes>
          <hr />
       </div>
