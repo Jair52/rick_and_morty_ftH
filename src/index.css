@@ -29,6 +29,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url("https://i.pinimg.com/originals/9a/c6/6f/9ac66f6a859827e7b490f605df573d68.png");
+  /* background-size: contain; */
 }
 
 h1 {
