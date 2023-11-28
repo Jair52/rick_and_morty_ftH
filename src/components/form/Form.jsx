@@ -1,6 +1,7 @@
+import styles from "./Form.module.css";
 import React, { useState } from 'react';
 import validation from '../../utils/validation';
-const banner = "https://i.imgur.com/t2gZFoh.jpeg"; 
+const banner = "https://www.freepnglogos.com/uploads/rick-and-morty-png/rick-and-morty-mind-bending-season-mysteries-quidd-6.png"; 
 
 export default function Form(props){
 
@@ -32,10 +33,10 @@ export default function Form(props){
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <img 
                 src={banner} 
-                style={{width:'750px', height:'200px'}}
+                style={{width:'400px', height:'500px'}}
                 alt="" 
             />
             <form onSubmit={handleSubmit}>
