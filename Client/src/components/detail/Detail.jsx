@@ -12,7 +12,8 @@ export default function Detail(props){
     const [character, setCharacter] = useState({});
 
     useEffect(() => {
-        axios(`${URL}/${id}?key=${API_key}`)
+        // axios(`${URL}/${id}?key=${API_key}`)
+        axios(`http://localhost:3001/rickandmorty/character/${id}`)
             .then(
                 ({ data }) => {
                     if (data.name) {
@@ -26,7 +27,7 @@ export default function Detail(props){
      }, [id]);
 
   return (
-    <div>
+    <div style={{backgroundColor:"darkgoldenrod", padding:"20px", borderRadius:"20px"}}>
         <h1>Detail</h1>
         <h2>{character.name}</h2>
         <img src={character.image} alt={character.name} />

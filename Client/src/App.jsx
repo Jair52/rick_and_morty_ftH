@@ -31,7 +31,8 @@ function App() {
       if(characterId.length){
          return alert(`${characterId[0].name} ya existe!`);
       }
-      axios(`${URL}/${id}?key=${API_key}`).then(
+      // axios(`${URL}/${id}?key=${API_key}`).then(
+      axios(`http://localhost:3001/rickandmorty/character/${id}`).then(
          ({ data }) => {
             if (data.name) {
                setCharacters([...characters, data]);
