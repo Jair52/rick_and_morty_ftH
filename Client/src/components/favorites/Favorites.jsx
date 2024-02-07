@@ -51,7 +51,7 @@ export default function Favorites({onClose}) {
                      status={myFavorite.status}
                      species={myFavorite.species}
                      gender={myFavorite.gender}
-                     origin={myFavorite.origin.name}
+                     origin={myFavorite.origin}
                      image={myFavorite.image}
                      onClose={onClose}
                   />
