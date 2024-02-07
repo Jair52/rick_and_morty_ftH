@@ -59,6 +59,9 @@ export default function reducer(state = initialState, { type, payload}){
             ...state, 
             myFavorites: orderCopy
         }
+    
+    //*case ERROR:
+
     default:
         return {...state};
   }
